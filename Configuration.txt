@@ -1,0 +1,33 @@
+- task1 http 
+conn id: forex_api
+conn type: HTTP
+Host: https://gist.github.com/
+
+- task2 file
+conn id: forex_path
+conn type: File (path)
+extra: {"path": "/opt/airflow/dags/files"}
+
+- task5 hive
+conn id: hive_conn
+conn type: Hive Client Wrapper
+Host: localhost
+port: 10000
+
+- task6 spark
+conn id: spark_conn
+conn type: Spark
+Host: local
+extra: {"queue": "root.default"}
+
+- task7,8
+follow the link in the video
+
+- task8 slack
+https://hooks.slack.com/services/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
+conn id: slack_conn
+conn type: HTTP
+HTTP: https://hooks.slack.com/services
+login: ---
+password: ---
+
