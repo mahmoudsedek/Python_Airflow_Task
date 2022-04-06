@@ -1,7 +1,6 @@
 from airflow import DAG
 from airflow.providers.http.sensors.http import HttpSensor
 from airflow.contrib.sensors.file_sensor import FileSensor
-from airflow.contrib.sensors.file_sensor import FileSensor
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.hive_operator import HiveOperator
