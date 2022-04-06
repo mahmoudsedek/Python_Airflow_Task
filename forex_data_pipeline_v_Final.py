@@ -1,3 +1,5 @@
+#Step-1 Importing needed modules
+
 from airflow import DAG
 from airflow.providers.http.sensors.http import HttpSensor
 from airflow.contrib.sensors.file_sensor import FileSensor
@@ -10,10 +12,11 @@ from airflow.operators.slack_operator import SlackAPIPostOperator
 from airflow.contrib.operators.slack_webhook_operator import SlackWebhookOperator
 
 from datetime import datetime, timedelta
-
 import csv
 import requests
 import json
+
+#Step-2 defining default_args for the DAG
 
 default_args = {
     "owner": "airflow",
@@ -47,11 +50,12 @@ def download_rates():
                 json.dump(outdata, outfile)
                 outfile.write('\n')
 
-# Dag configurations
+#Step-3 Dag configurations
  
 with DAG("forex_data_pipeline_v_Final", start_date=datetime(2021, 1 ,1), 
     schedule_interval="@daily", default_args=default_args, catchup=False) as dag:
 
+#Step-4 defining the tasks
 # Task 1
 
     is_forex_rates_available = HttpSensor(
@@ -138,7 +142,7 @@ with DAG("forex_data_pipeline_v_Final", start_date=datetime(2021, 1 ,1),
         username="airflow"
     )
 
-# Organizing the workflow
+#Step-5 Organizing the workflow (defining the dependencies between tasks)
 
     is_forex_rates_available >> is_forex_currencies_file_available >> downloading_rates >> saving_rates
 
